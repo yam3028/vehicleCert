@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle Identification Certificate</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js"></script>
+  <link rel="stylesheet" href="vehicle.css">
+</head>
+<body>
+  <div class="certificate-container">
+    <div class="header">
+      <div class="logo">LOGO</div>
+      <a href="#" class="exit-button">
+        <div class="exit-icon">⟩</div>
+        Exit
+      </a>
+    </div>
+
+    <div class="title">
+      <h1>VEHICLE IDENTIFICATION <span class="blue-text">CERTIFICATE</span></h1>
+      <p>Lorem ipsum dolor sit amet consectetur.</p>
+    </div>
+
+    <!-- Card section -->
+    <div class="card-container">
+      <div class="card" id="scan-card">
+        <div class="card-icon">📱</div>
+        <div class="card-title">Scan QR Code</div>
+        <div class="card-text">Use your device camera to scan a vehicle QR code for quick identification.</div>
+        <button class="action-button" onclick="toggleScanner()" style="margin-top: 15px;" id="scanner-toggle-btn">Open Scanner</button>
+      </div>
+      
+      <!-- QR Scanner section - now directly after the scan card -->
+      <div class="qr-scanner" id="scanner-container">
+        <h3>Scan Vehicle QR Code</h3>
+        <div id="qr-reader"></div>
+        <div id="qr-reader-results" class="scanner-result">
+          <h4>Scan Result:</h4>
+          <div id="result-text"></div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <div class="card-title">Verify Certificate</div>
+        <div class="card-text">Check the authenticity of vehicle certificates in our database.</div>
+        <button class="action-button" style="margin-top: 15px;">Verify</button>
+      </div>
+    </div>
+
+    <div class="certificate-actions">
+      <a href="#" class="action-button">Download Certificate</a>
+      <a href="#" class="action-button">Certificate Info</a>
+    </div>
+
+    <div class="content">
+      <div class="data-section">
+        <div class="section-header">
+          <span class="section-icon">⊡</span>
+          DigSig Datafields
+        </div>
+
+        <div class="data-field">
+          <div class="field-label">Manufacturer</div>
+          <div class="field-value">JK</div>
+        </div>
+
+        <div class="data-field">
+          <div class="field-label">Production date</div>
+          <div class="field-value">2019-09-30T08:35:53+00:00</div>
+        </div>
+
+        <div class="data-field">
+          <div class="field-label">Serial number</div>
+          <div class="serial-number">
+            <div class="field-value">letters MV</div>
+            <div class="field-value">numbers 00454482</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="data-section">
+        <div class="section-header">
+          <span class="section-icon">⊞</span>
+          Certificate
+        </div>
+
+        <div class="data-field">
+          <div class="field-label">Signed by</div>
+          <div class="field-value">https://dauri.idetrust.com</div>
+        </div>
+
+        <div class="data-field">
+          <div class="field-label">Domain Authority ID</div>
+          <div class="field-value">QC IDET</div>
+        </div>
+
+        <div class="data-field">
+          <div class="field-label">Signed on</div>
+          <div class="field-value">2019-09-30T08:53:01+00:00</div>
+        </div>
+      </div>
+
+      <div class="data-section">
+        <div class="section-header"></div>
+
+        <div class="data-field">
+          <div class="field-label">DigSig Certificate ID</div>
+          <div class="field-value">183</div>
+        </div>
+
+        <div class="data-field">
+          <div class="field-label">DigSig Version</div>
+          <div class="field-value">ISO/IEC 20248:2018</div>
+        </div>
+
+        <div class="data-field">
+          <div class="field-label">DigSig Certificate Repository</div>
+          <div class="field-value">https://idetrust.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Function to toggle scanner visibility within the card container
+    function toggleScanner() {
+      const scannerContainer = document.getElementById('scanner-container');
+      const scanCard = document.getElementById('scan-card');
+      const toggleBtn = document.getElementById('scanner-toggle-btn');
+      
+      if (scannerContainer.style.display === 'block') {
+        scannerContainer.style.display = 'none';
+        toggleBtn.textContent = 'Open Scanner';
+        
+        if (window.html5QrCode) {
+          window.html5QrCode.stop().catch(error => {
+            console.error("Failed to stop QR scanner:", error);
+          });
+        }
+      } else {
+        // Insert scanner right after the scan card
+        scannerContainer.style.display = 'block';
+        toggleBtn.textContent = 'Close Scanner';
+        
+        // Initialize scanner
+        initScanner();
+      }
+    }
+
+    // Function to initialize the QR scanner
+    function initScanner() {
+      const resultContainer = document.getElementById('qr-reader-results');
+      const resultText = document.getElementById('result-text');
+      
+      if (window.html5QrCode) {
+        window.html5QrCode.clear();
+      }
+      
+      window.html5QrCode = new Html5Qrcode("qr-reader");
+      
+      // Configure scanner with mobile-friendly settings
+      const config = { 
+        fps: 10, 
+        qrbox: { width: 250, height: 250 },
+        aspectRatio: 1.33,
+        formatsToSupport: [ Html5QrcodeSupportedFormats.QR_CODE ]
+      };
+      
+      // Handle camera availability and permissions
+      Html5Qrcode.getCameras().then(devices => {
+        if (devices && devices.length) {
+          // Start scanner with the environment-facing camera (usually back camera)
+          window.html5QrCode.start(
+            { facingMode: "environment" }, 
+            config, 
+            (decodedText, decodedResult) => {
+              // Success callback
+              console.log(`QR Code detected: ${decodedText}`, decodedResult);
+              resultContainer.style.display = 'block';
+              resultText.innerHTML = `<strong>QR Code:</strong> ${decodedText}`;
+              
+              // Don't stop scanning automatically
+              // Let user close the scanner when done
+            },
+            (errorMessage) => {
+              // Error callback - just log, don't disturb user
+              console.log(errorMessage);
+            }
+          ).catch(err => {
+            alert("Camera access error: " + err.message);
+            console.error("Failed to start scanner:", err);
+            toggleScanner(); // Close scanner on error
+          });
+        } else {
+          alert("No cameras found on your device");
+          toggleScanner(); // Close scanner if no cameras
+        }
+      }).catch(err => {
+        alert("Camera detection error: " + err.message);
+        console.error("Error getting cameras", err);
+        toggleScanner(); // Close scanner on error
+      });
+    }
+  </script>
+</body>
+</html>

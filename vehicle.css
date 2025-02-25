@@ -1,0 +1,232 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 15px;
+}
+
+.certificate-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1000px;
+  padding: 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  color: #1e88e5;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.exit-button {
+  display: flex;
+  align-items: center;
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.exit-icon {
+  margin-right: 5px;
+  border: 2px solid #333;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.title h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+@media (max-width: 600px) {
+  .title h1 {
+    font-size: 20px;
+  }
+}
+
+.title h1 .blue-text {
+  color: #1e88e5;
+}
+
+.title p {
+  margin: 5px 0 0;
+  color: #666;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.data-section {
+  flex: 1;
+  min-width: 250px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #1e88e5;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.section-icon {
+  margin-right: 10px;
+}
+
+.data-field {
+  margin-bottom: 15px;
+}
+
+.field-label {
+  font-weight: bold;
+  margin-bottom: 3px;
+  font-size: 14px;
+}
+
+.field-value {
+  color: #666;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.serial-number {
+  display: flex;
+  flex-direction: column;
+}
+
+.certificate-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.action-button {
+  background-color: white;
+  border: 1px solid #1e88e5;
+  border-radius: 20px;
+  color: #1e88e5;
+  padding: 8px 15px;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Card styles */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.card {
+  flex: 1;
+  min-width: 250px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card-icon {
+  font-size: 22px;
+  color: #1e88e5;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.card-text {
+  color: #666;
+  font-size: 14px;
+}
+
+/* QR Scanner styles */
+.qr-scanner {
+  width: 100%;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+#qr-reader {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+#qr-reader video {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 8px;
+  max-height: 70vh;
+  object-fit: cover;
+}
+
+.scanner-result {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f0f8ff;
+  border-radius: 5px;
+  border-left: 4px solid #1e88e5;
+  display: none;
+}
+
+/* Fix for HTML5 QR scanner UI */
+#qr-reader__status_span {
+  background-color: #1e88e5 !important;
+  color: white !important;
+}
+
+#qr-reader__dashboard button {
+  border: 1px solid #1e88e5 !important;
+  background-color: white !important;
+  color: #1e88e5 !important;
+  border-radius: 4px !important;
+  padding: 5px 10px !important;
+}
